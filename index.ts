@@ -1,11 +1,10 @@
 import { stepCountIs, streamText } from "ai";
 import { google } from "@ai-sdk/google";
 import { SYSTEM_PROMPT } from "./prompt";
-import * as path from 'path';
-import * as fs from 'fs/promises';
 import { getFileChangesInDirectoryTool } from "./tools/fileChange";
 import { generateMarkdownFileTool } from "./tools/markdownGenerator";
 import { generateCommitMessageTool } from "./tools/commitMessageGenerator";
+import { reviewFormatterTool } from "./tools/reviewFormatter";
 
 
 const codeReviewAgent = async (prompt: string) => {
@@ -27,6 +26,7 @@ const codeReviewAgent = async (prompt: string) => {
             getFileChangesInDirectoryTool: getFileChangesInDirectoryTool,
             generateMarkdownFileTool: generateMarkdownFileTool,
             generateCommitMessageTool: generateCommitMessageTool,
+            reviewFormatterTool: reviewFormatterTool,
         },
         stopWhen: stepCountIs(10),
     });
